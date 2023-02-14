@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.domain.Delivery;
 import jpabook.jpashop.domain.DeliveryStatus;
 import jpabook.jpashop.domain.Item;
@@ -27,6 +28,14 @@ public class JpaMain {
             // 아이템 생성
             Item item = new Item("사과", 1000, 10);
             em.persist(item);
+
+            Category childCategory = new Category("장미과");
+            childCategory.addItem(item);
+            em.persist(childCategory);
+
+            Category parentCategory = new Category("장미목");
+            parentCategory.addChildCategory(childCategory);
+            em.persist(parentCategory);
 
             // 회원 등록
             Member member = new Member("Yuwonwoo", "Gunpo", "328 Beonyeong-ro", "15870");
@@ -53,6 +62,7 @@ public class JpaMain {
         } finally {
             em.close();
         }
+
         emf.close();
     }
 }
