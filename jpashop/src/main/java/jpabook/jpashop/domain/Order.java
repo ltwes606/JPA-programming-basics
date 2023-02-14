@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +28,9 @@ public class Order {
     private Member member;
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
     @Column(name = "order_date")
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
@@ -35,8 +39,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Member member, LocalDateTime orderDate,
-            OrderStatus status) {
+    public Order(Member member, LocalDateTime orderDate, OrderStatus status) {
         this.member = member;
         this.orderDate = orderDate;
         this.status = status;
@@ -69,6 +72,14 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 
     public LocalDateTime getOrderDate() {
