@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Category {
+public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -47,6 +47,7 @@ public class Category {
         items.add(item);
         item.getCategories().add(this);
     }
+
     public Long getId() {
         return id;
     }
