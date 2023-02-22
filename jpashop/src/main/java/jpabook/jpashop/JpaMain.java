@@ -92,6 +92,7 @@ public class JpaMain {
             tx.commit();
         } catch (Exception exception) {
             tx.rollback();
+            exception.printStackTrace();
         } finally {
             em.close();
         }
