@@ -90,9 +90,9 @@ public class JpaMain {
             em.persist(orderItem3);
 
             em.flush();
-            Order findOrder = em.find(Order.class, order.getId());
-
             em.clear();
+            
+            Order findOrder = em.find(Order.class, order.getId());
             // orphanRemoval
             findOrder.getOrderItems().remove(0);
             // cascade
